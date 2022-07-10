@@ -18,6 +18,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import Link from "next/link"
 
 const drawerWidth = 240;
 
@@ -105,7 +106,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
+            <AppBar position="fixed" open={open} color="secondary">
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -141,6 +142,9 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                                     px: 2.5,
                                 }}
                             >
+
+
+
                                 <ListItemIcon
                                     sx={{
                                         minWidth: 0,
@@ -151,6 +155,8 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                                 </ListItemIcon>
                                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+
+
                             </ListItemButton>
                         </ListItem>
                     ))}
