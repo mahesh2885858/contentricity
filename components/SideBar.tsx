@@ -16,14 +16,19 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Badge from '@mui/material/Badge';
+
 import Link from "next/link"
 import PrimarySearchAppBar from './AppBar';
 const drawerWidth = 240;
+const menuId = 'primary-search-account-menu';
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: drawerWidth,
@@ -139,6 +144,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer({ children }: { children: React.ReactNode }) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -156,24 +165,25 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={handleDrawerOpen}
+                        // onClick={handleDrawerOpen}
                         edge="start"
                         sx={{
                             marginRight: 5,
                             ...(open && { display: 'none' }),
                         }}
                     >
-                        <MenuIcon />
+                        HO
                     </IconButton>
                     <IconButton
 
                         edge="start"
                         sx={{
                             marginRight: 4,
-                            ...(open && { display: 'none' }),
+                            // ...(open && { display: 'none' }),
 
                         }} onClick={open ? handleDrawerClose : handleDrawerOpen}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        {/* {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
+                        {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
                         Mini variant drawer
@@ -187,14 +197,40 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
+                    <Box sx={{ display: 'flex' }}>
+
+                        <IconButton
+                            size="large"
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                        >
+                            <Badge badgeContent={17} color="error">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            size="large"
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={handleProfileMenuOpen}
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                    </Box>
                 </Toolbar>
             </AppBar>
             {/* <PrimarySearchAppBar /> */}
             <Drawer variant="permanent" open={open}>
-                <DrawerHeader>
-                    <IconButton onClick={open ? handleDrawerClose : handleDrawerClose}>
+                <DrawerHeader style={{
+                    justifyContent: "space-between"
+                }}>
+                    <Box >Mahesh</Box>
+                    {/* <IconButton onClick={open ? handleDrawerClose : handleDrawerClose}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                    </IconButton>
+                    </IconButton> */}
                 </DrawerHeader>
                 <Divider />
                 <List>
