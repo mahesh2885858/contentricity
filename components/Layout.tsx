@@ -1,19 +1,23 @@
 import React from 'react'
 import SideBar from './SideBar'
 // import AppBar from './AppBar'
-import { Container, Drawer } from '@mui/material'
+import { Container } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+const theme = createTheme({
+    palette: { secondary: { main: "#ffffff" } }
+})
 const Layout = ({ children }: { children: any }) => {
     return (
-        <Container>
+        <ThemeProvider theme={theme}>
 
-            <SideBar >
-
-
-                <div>
-                    {children}
-                </div>
-            </SideBar>
-        </Container>
+            <Container>
+                <SideBar >
+                    <div>
+                        {children}
+                    </div>
+                </SideBar>
+            </Container>
+        </ThemeProvider>
     )
 }
 

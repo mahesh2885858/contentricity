@@ -1,13 +1,12 @@
 import type { NextPage } from 'next'
 import { Box, Card } from '@mui/material'
+import CardWithProps from '../components/Card'
 const Home: NextPage = () => {
   return (
     <Box sx={{
 
     }} >
-      <Card elevation={8} sx={{ width: "200px" }} >
-        this is content of card
-      </Card>
+      <CardWithProps />
     </Box>
   )
 }
