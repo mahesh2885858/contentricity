@@ -1,7 +1,7 @@
 import React from 'react'
 import SideBar from './SideBar'
 // import AppBar from './AppBar'
-import { Container } from '@mui/material'
+import { Container, Box } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 const theme = createTheme({
     palette: { secondary: { main: "#ffffff" } }
@@ -10,13 +10,13 @@ const Layout = ({ children }: { children: any }) => {
     return (
         <ThemeProvider theme={theme}>
 
-            <Container>
+            <Box sx={{ background: "#F5F6F8", height: "100vh" }}>
                 <SideBar >
                     <div>
                         {children}
                     </div>
                 </SideBar>
-            </Container>
+            </Box>
         </ThemeProvider>
     )
 }
