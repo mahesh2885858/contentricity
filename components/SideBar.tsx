@@ -45,6 +45,10 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import CropOriginalOutlinedIcon from '@mui/icons-material/CropOriginalOutlined';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import Collapse from '@mui/material/Collapse';
+
 export default function MiniDrawer({ children }: { children: React.ReactNode }) {
     const drawerWidth = 260;
     const menuId = 'primary-search-account-menu';
@@ -186,6 +190,11 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
         { name: "Content Source", id: "contntSorce@#@#", icon: <AssessmentOutlinedIcon />, isActive: false, type: "admin" },
         { name: "Reports", id: "Rprts#@#$asfasf", icon: <AssessmentOutlinedIcon />, isActive: false, type: "admin" },
         { name: "Settings", id: "admSett@$!@#", icon: <SettingsOutlinedIcon />, isActive: false, type: "admin" },
+
+        { name: "Biling", id: "#!@#$SDFasdf@#4R%$5", icon: <ChatOutlinedIcon />, isActive: false, type: "main" },
+
+    ]
+    const adminSettingsMenuItems = [
         { name: "General", id: "#qwed%$5", icon: <SettingsOutlinedIcon />, isActive: false, type: "sub" },
         { name: "Workflow", id: "#WERWer%$5", icon: <SettingsOutlinedIcon />, isActive: false, type: "sub" },
         { name: "Platforms", id: "#qoiu#oiasf$5", icon: <DomainAddOutlinedIcon />, isActive: false, type: "sub" },
@@ -194,8 +203,6 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
         { name: "Images", id: "#NH&^%$Gtjld%$5", icon: <CropOriginalOutlinedIcon />, isActive: false, type: "sub" },
         { name: "Files", id: "#ASDFAsdf%$5", icon: <ChatOutlinedIcon />, isActive: false, type: "sub" },
         { name: "Discussions", id: "#!@#$SDFR%$5", icon: <ChatOutlinedIcon />, isActive: false, type: "sub" },
-        { name: "Biling", id: "#!@#$SDFasdf@#4R%$5", icon: <ChatOutlinedIcon />, isActive: false, type: "main" },
-
     ]
 
 
@@ -208,6 +215,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
     const menuItemsToDisplay = isAdmin && showAdminPanel ? adminMenuItems : generalMenuItems
     const [menuItems, setMenuItems] = React.useState(menuItemsToDisplay)
     const [showAdminSettings, setShowAdminSettings] = React.useState(false)
+    const [expandAdminSettings, setExpandAdminSettings] = React.useState(false)
     // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -239,6 +247,9 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
     }
 
     // 
+    const toggleTheSettingsList = () => {
+        setExpandAdminSettings((prev) => !prev)
+    }
     //    navigate to a screen related menu item clicked
     const navigateToMenuItemSecion = (id: string) => {
         setMenuItems((prev) => {
@@ -410,7 +421,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                 <Divider color='#ffffff12' />
                 <List sx={{ display: "flex", gap: "5px", flexDirection: "column", justifyContent: "flex-start", alignItems: "center", height: "100vh" }}>
                     {isAdmin && showAdminPanel && open ? (
-                        <Box height={"53px"} sx={{ display: "flex", backgroundColor: themeContext.mode === "light" ? "#F5F8FF" : "#30334E" }} >
+                        <Box height={"53px"} sx={{ display: "flex", backgroundColor: themeContext.mode === "light" ? "#F5F8FF" : "#30334E", justifyContent: "center", alignItems: "center" }} >
                             <Typography fontSize={16} fontWeight={"500"} display={"inline"} >
 
                                 ADMINISTRATION
@@ -419,7 +430,65 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                         </Box>) : undefined}
                     {menuItemsToDisplay.map((item, index) => {
                         if (item.type === "sub" && showAdminSettings) return undefined
+                        else if (item.name === "Settings") {
+                            return (
+                                <>
+                                    <ListItem onClick={toggleTheSettingsList} key={item.id} disablePadding sx={{ display: 'flex', flexDirection: "column" }}>
+                                        <Tooltip title={item.name} placement="right" >
 
+                                            <ListItemButton
+                                                sx={{
+                                                    minHeight: 48,
+                                                    justifyContent: open ? 'initial' : 'center',
+                                                    px: 2.5,
+                                                    backgroundColor: themeContext.mode === "light" && item.isActive ? "#EBF0FE" : (themeContext.mode === "dark" ? "#30334E" : "#fff"),
+                                                    borderRadius: "8px",
+                                                    width: open ? "213px" : "46px",
+                                                    height: "42px",
+
+                                                }}
+                                            >
+                                                <ListItemIcon
+                                                    sx={{
+                                                        minWidth: 0,
+                                                        mr: open ? 3 : 'auto',
+                                                        justifyContent: 'center',
+                                                        color: themeContext.mode === "light" ? "unset" : "#FFFFFF87"
+                                                    }}
+                                                >
+                                                    {item.icon}
+                                                </ListItemIcon>
+                                                <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+                                            </ListItemButton>
+                                        </Tooltip>
+
+                                        {/* {expandAdminSettings ? <ExpandLess /> : <ExpandMore />} */}
+
+                                        <Collapse in={expandAdminSettings} timeout="auto" unmountOnExit>
+                                            <List component="div" disablePadding>
+                                                {adminSettingsMenuItems.map((item,) => {
+                                                    return (
+
+                                                        <ListItemButton key={item.id} sx={{ pl: 4 }}>
+                                                            <ListItemIcon
+                                                                sx={{
+
+                                                                    color: themeContext.mode === "light" ? "unset" : "#FFFFFF87"
+                                                                }}
+                                                            >
+                                                                {item.icon}
+                                                            </ListItemIcon>
+                                                            <ListItemText primary={item.name} />
+                                                        </ListItemButton>
+                                                    )
+                                                })}
+                                            </List>
+                                        </Collapse>
+                                    </ListItem>
+                                </>
+                            )
+
+                        }
                         else return (
 
 
@@ -458,60 +527,66 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
 
                     })}
 
+                    {
+                        isAdmin ?
 
-                    <ListItem disablePadding sx={{ display: 'flex', flexDirection: "column", }}>
-                        <Tooltip title={"admin"} placement="right" >
+                            (<ListItem disablePadding sx={{ display: 'flex', flexDirection: "column", }}>
+                                <Tooltip title={"admin"} placement="right" >
 
-                            <ListItemButton
-                                sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
-                                    // backgroundColor: themeContext.mode === "light" && item.isActive ? "#EBF0FE" : (themeContext.mode === "dark" ? "#30334E" : "#fff"),
-                                    borderRadius: "8px",
-                                    width: open ? "213px" : "46px",
-                                    height: "42px",
+                                    <ListItemButton
+                                        sx={{
+                                            minHeight: 48,
+                                            justifyContent: open ? 'initial' : 'center',
+                                            px: 2.5,
+                                            // backgroundColor: themeContext.mode === "light" && item.isActive ? "#EBF0FE" : (themeContext.mode === "dark" ? "#30334E" : "#fff"),
+                                            borderRadius: "8px",
+                                            width: open ? "213px" : "46px",
+                                            height: "42px",
 
-                                }}
-                            >
-                                {
-                                    !open ?
+                                        }}
+                                    >
 
-                                        (<ListItemIcon
+                                        <ListItemIcon
                                             onClick={toogleAdminPanel}
                                             sx={{
                                                 minWidth: 0,
                                                 mr: open ? 3 : 'auto',
                                                 justifyContent: 'center',
                                                 color: themeContext.mode === "light" ? "unset" : "#FFFFFF87",
+                                                height: "38px",
+                                                width: "46px",
 
                                             }}
                                         >
-                                            <Box sx={{
+                                            {/* <Box sx={{
                                                 height: "38px",
                                                 width: "46px",
 
 
                                             }}
-                                            >
-                                                <Image src={"/RectangleAdmin.png"} width={"100%"} height={"100%"} />
+                                            > */}
+                                            <Image src={"/RectangleAdmin.png"} width={"100%"} height={"100%"} />
 
-                                            </Box>
-                                        </ListItemIcon>) : undefined
-                                }
-                                {open ?
+                                            {/* </Box> */}
+                                        </ListItemIcon>
+
+                                        {/* {open && isAdmin ?
                                     (<Button
                                         onClick={toogleAdminPanel}
                                         style={{ backgroundColor: "#3366FF", color: "#ffffff", height: "38px", width: "218px" }}
                                         sx={{
                                             opacity: open ? 1 : 0,
-
+                                            
                                         }} >Administration</Button>
-                                    ) : undefined}
-                            </ListItemButton>
-                        </Tooltip>
+                                    ) : undefined} */}
+                                        <ListItemText primary={"Administration"} sx={{ opacity: open ? 1 : 0 }} />
 
-                    </ListItem>
+                                    </ListItemButton>
+                                </Tooltip>
+
+                            </ListItem>
+                            ) : undefined
+                    }
                 </List>
                 {/* <Divider /> */}
                 {/* <List>
