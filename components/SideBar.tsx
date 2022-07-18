@@ -15,6 +15,7 @@ import Avatar from '@mui/material/Avatar';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import IconButton from '@mui/material/IconButton';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
@@ -28,22 +29,29 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
+import FilterNoneOutlinedIcon from '@mui/icons-material/FilterNoneOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import MailIcon from '@mui/icons-material/Mail';
 import Badge from '@mui/material/Badge';
 import Image from "next/image"
+import Button from "@mui/material/Button"
 import { ColorModeContext } from "./ColorModeContext"
-
+import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import DomainAddOutlinedIcon from '@mui/icons-material/DomainAddOutlined';
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
+import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import CropOriginalOutlinedIcon from '@mui/icons-material/CropOriginalOutlined';
+import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
+import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 export default function MiniDrawer({ children }: { children: React.ReactNode }) {
     const drawerWidth = 260;
     const menuId = 'primary-search-account-menu';
     const userSettings = ["Profile", "Preferences", "Reset Password", "Logout"]
-    const menuItems = [
-        { name: "Dashboard", icon: "", isActive: true, id: "123" },
-        { name: "Articles", icon: "", isActive: false, id: "1234" },
-        { name: "File manager", icon: "", isActive: false, id: "1234a" },
-        { name: "Assignments", icon: "", isActive: false, id: "1233e4" },
-    ]
+
+
+
     const themeContext = React.useContext(ColorModeContext)
     const openedMixin = (theme: Theme): CSSObject => ({
         width: drawerWidth,
@@ -52,7 +60,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
             duration: theme.transitions.duration.enteringScreen,
         }),
         overflowX: 'hidden',
-        backgroundColor: themeContext.mode === "light" ? "unset" : "#30334E"
+        backgroundColor: themeContext.mode === "light" ? "#ffffff" : "#30334E",
     });
 
     const closedMixin = (theme: Theme): CSSObject => ({
@@ -65,7 +73,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
         [theme.breakpoints.up('sm')]: {
             width: `calc(${theme.spacing(8)} + 1px)`,
         },
-        backgroundColor: themeContext.mode === "light" ? "unset" : "#30334E"
+        backgroundColor: themeContext.mode === "light" ? "#ffffff" : "#30334E"
 
     });
 
@@ -162,9 +170,44 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
             }),
         }),
     );
+
+    const generalMenuItems = [
+        { name: "Dashboard", icon: <HomeOutlinedIcon />, isActive: true, id: "123", type: "main" },
+        { name: "Articles", icon: < FilterNoneOutlinedIcon />, isActive: false, id: "1234", type: "main" },
+        { name: "File manager", icon: <FolderOutlinedIcon />, isActive: false, id: "1234a", type: "main" },
+        { name: "Assignments", icon: <AssignmentOutlinedIcon />, isActive: false, id: "1233e4", type: "main" },
+    ]
+
+    const adminMenuItems = [
+        { name: "Platforms", id: "platform34%45", icon: <DomainAddOutlinedIcon />, isActive: false, type: "admin" },
+        { name: "Users", id: "usrs@#$sdf", icon: <PeopleAltOutlinedIcon />, isActive: false, type: "admin" },
+        { name: "Roles", id: "roels#!24idsfa", icon: <SupervisedUserCircleOutlinedIcon />, isActive: false, type: "admin" },
+        { name: "Activity Log", id: "actiVET#$@0,", icon: <AssessmentOutlinedIcon />, isActive: false, type: "admin" },
+        { name: "Content Source", id: "contntSorce@#@#", icon: <AssessmentOutlinedIcon />, isActive: false, type: "admin" },
+        { name: "Reports", id: "Rprts#@#$asfasf", icon: <AssessmentOutlinedIcon />, isActive: false, type: "admin" },
+        { name: "Settings", id: "admSett@$!@#", icon: <SettingsOutlinedIcon />, isActive: false, type: "admin" },
+        { name: "General", id: "#qwed%$5", icon: <SettingsOutlinedIcon />, isActive: false, type: "sub" },
+        { name: "Workflow", id: "#WERWer%$5", icon: <SettingsOutlinedIcon />, isActive: false, type: "sub" },
+        { name: "Platforms", id: "#qoiu#oiasf$5", icon: <DomainAddOutlinedIcon />, isActive: false, type: "sub" },
+        { name: "Tags", id: "#qxcvQEW35", icon: <CropOriginalOutlinedIcon />, isActive: false, type: "sub" },
+        { name: "Texteditor", id: "#ockem%&dkf%$5", icon: <CropOriginalOutlinedIcon />, isActive: false, type: "sub" },
+        { name: "Images", id: "#NH&^%$Gtjld%$5", icon: <CropOriginalOutlinedIcon />, isActive: false, type: "sub" },
+        { name: "Files", id: "#ASDFAsdf%$5", icon: <ChatOutlinedIcon />, isActive: false, type: "sub" },
+        { name: "Discussions", id: "#!@#$SDFR%$5", icon: <ChatOutlinedIcon />, isActive: false, type: "sub" },
+        { name: "Biling", id: "#!@#$SDFasdf@#4R%$5", icon: <ChatOutlinedIcon />, isActive: false, type: "main" },
+
+    ]
+
+
+
     const theme = useTheme();
     const { mode, switchTheme } = React.useContext(ColorModeContext)
     const [open, setOpen] = React.useState(false);
+    const [isAdmin, setIsAdmin] = React.useState(true)
+    const [showAdminPanel, setShowAdminPanel] = React.useState(false)
+    const menuItemsToDisplay = isAdmin && showAdminPanel ? adminMenuItems : generalMenuItems
+    const [menuItems, setMenuItems] = React.useState(menuItemsToDisplay)
+    const [showAdminSettings, setShowAdminSettings] = React.useState(false)
     // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -181,6 +224,34 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    // Just for the dev purpose
+    const toogleAdmin = () => {
+        setIsAdmin((prev) => !prev)
+    }
+    // when user click on amin logo at the bottom of the drawer
+    const toogleAdminPanel = () => {
+        setShowAdminPanel((pre) => !pre)
+        setOpen(true)
+    }
+    // when user click on the settings icon in admin panel
+    const toogleAdminSettings = () => {
+        setShowAdminSettings((prev) => !prev)
+    }
+
+    // 
+    //    navigate to a screen related menu item clicked
+    const navigateToMenuItemSecion = (id: string) => {
+        setMenuItems((prev) => {
+            return prev.map((item) => {
+                if (item.id === id) {
+                    return { ...item, isActive: true }
+                } else {
+                    return { ...item, isActive: false }
+                }
+            })
+        })
+        console.log(menuItems)
+    }
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -196,7 +267,6 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
 
                             edge="start"
                             onClick={open ? handleDrawerClose : handleDrawerOpen}>
-                            {/* {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
                             {!open ? <KeyboardDoubleArrowRightOutlinedIcon /> : <KeyboardDoubleArrowLeftOutlinedIcon />}
                         </IconButton>
 
@@ -338,39 +408,110 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
 
                 </DrawerHeader>
                 <Divider color='#ffffff12' />
-                <List sx={{ display: "flex", gap: "5px", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                    {menuItems.map((item, index) => (
-                        <ListItem key={item.id} disablePadding sx={{ display: 'flex', flexDirection: "column" }}>
-                            <Tooltip title={item.name} placement="right" >
+                <List sx={{ display: "flex", gap: "5px", flexDirection: "column", justifyContent: "flex-start", alignItems: "center", height: "100vh" }}>
+                    {isAdmin && showAdminPanel && open ? (
+                        <Box height={"53px"} sx={{ display: "flex", backgroundColor: themeContext.mode === "light" ? "#F5F8FF" : "#30334E" }} >
+                            <Typography fontSize={16} fontWeight={"500"} display={"inline"} >
 
-                                <ListItemButton
-                                    sx={{
-                                        minHeight: 48,
-                                        justifyContent: open ? 'initial' : 'center',
-                                        px: 2.5,
-                                        backgroundColor: themeContext.mode === "light" && item.isActive ? "#EBF0FE" : (themeContext.mode === "dark" ? "#30334E" : "#fff"),
-                                        borderRadius: "8px",
-                                        width: open ? "213px" : "46px",
-                                        height: "42px",
+                                ADMINISTRATION
+                            </Typography>
+                            <CloseOutlinedIcon onClick={toogleAdminPanel} sx={{ marginLeft: '63px', cursor: "pointer" }} />
+                        </Box>) : undefined}
+                    {menuItemsToDisplay.map((item, index) => {
+                        if (item.type === "sub" && showAdminSettings) return undefined
 
-                                    }}
-                                >
-                                    <ListItemIcon
+                        else return (
+
+
+                            <ListItem onClick={() => navigateToMenuItemSecion(item.id)} key={item.id} disablePadding sx={{ display: 'flex', flexDirection: "column" }}>
+                                <Tooltip title={item.name} placement="right" >
+
+                                    <ListItemButton
                                         sx={{
-                                            minWidth: 0,
-                                            mr: open ? 3 : 'auto',
-                                            justifyContent: 'center',
-                                            color: themeContext.mode === "light" ? "unset" : "#FFFFFF87"
+                                            minHeight: 48,
+                                            justifyContent: open ? 'initial' : 'center',
+                                            px: 2.5,
+                                            backgroundColor: themeContext.mode === "light" && item.isActive ? "#EBF0FE" : (themeContext.mode === "dark" ? "#30334E" : "#fff"),
+                                            borderRadius: "8px",
+                                            width: open ? "213px" : "46px",
+                                            height: "42px",
+
                                         }}
                                     >
-                                        {<HomeOutlinedIcon />}
-                                    </ListItemIcon>
-                                    <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
-                                </ListItemButton>
-                            </Tooltip>
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth: 0,
+                                                mr: open ? 3 : 'auto',
+                                                justifyContent: 'center',
+                                                color: themeContext.mode === "light" ? "unset" : "#FFFFFF87"
+                                            }}
+                                        >
+                                            {item.icon}
+                                        </ListItemIcon>
+                                        <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+                                    </ListItemButton>
+                                </Tooltip>
 
-                        </ListItem>
-                    ))}
+                            </ListItem>)
+
+
+
+                    })}
+
+
+                    <ListItem disablePadding sx={{ display: 'flex', flexDirection: "column", }}>
+                        <Tooltip title={"admin"} placement="right" >
+
+                            <ListItemButton
+                                sx={{
+                                    minHeight: 48,
+                                    justifyContent: open ? 'initial' : 'center',
+                                    px: 2.5,
+                                    // backgroundColor: themeContext.mode === "light" && item.isActive ? "#EBF0FE" : (themeContext.mode === "dark" ? "#30334E" : "#fff"),
+                                    borderRadius: "8px",
+                                    width: open ? "213px" : "46px",
+                                    height: "42px",
+
+                                }}
+                            >
+                                {
+                                    !open ?
+
+                                        (<ListItemIcon
+                                            onClick={toogleAdminPanel}
+                                            sx={{
+                                                minWidth: 0,
+                                                mr: open ? 3 : 'auto',
+                                                justifyContent: 'center',
+                                                color: themeContext.mode === "light" ? "unset" : "#FFFFFF87",
+
+                                            }}
+                                        >
+                                            <Box sx={{
+                                                height: "38px",
+                                                width: "46px",
+
+
+                                            }}
+                                            >
+                                                <Image src={"/RectangleAdmin.png"} width={"100%"} height={"100%"} />
+
+                                            </Box>
+                                        </ListItemIcon>) : undefined
+                                }
+                                {open ?
+                                    (<Button
+                                        onClick={toogleAdminPanel}
+                                        style={{ backgroundColor: "#3366FF", color: "#ffffff", height: "38px", width: "218px" }}
+                                        sx={{
+                                            opacity: open ? 1 : 0,
+
+                                        }} >Administration</Button>
+                                    ) : undefined}
+                            </ListItemButton>
+                        </Tooltip>
+
+                    </ListItem>
                 </List>
                 {/* <Divider /> */}
                 {/* <List>
@@ -400,7 +541,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                     ))}
                 </List> */}
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3, }}>
+            <Box component="main" sx={{ flexGrow: 1, p: 3, gap: "20px", display: "flex", height: `calc(100vh - 70px)`, marginTop: "70px", width: "100%" }}>
                 <DrawerHeader />
                 {children}
             </Box>

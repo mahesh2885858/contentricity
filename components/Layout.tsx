@@ -8,12 +8,12 @@ const Layout = ({ children }: { children: any }) => {
         <ColorModeContextProvider>
             <Box sx={{ height: "100vh" }}>
                 <SideBar >
-                    <Box>
-                        {children}
-                    </Box>
+                    {/* <Box> */}
+                    {children}
+                    {/* </Box> */}
                 </SideBar>
             </Box>
-        </ColorModeContextProvider>
+        </ColorModeContextProvider >
     )
 }
 
