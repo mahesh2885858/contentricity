@@ -1,9 +1,14 @@
 import type { NextPage } from 'next'
-import { Box, Card, Container } from '@mui/material'
+import { Box, Button, Card, Container } from '@mui/material'
 import CardWithProps from '../components/Card'
 const Home: NextPage = () => {
   return (
-    <Box >Hellow world</Box>
+    <>
+
+      <CardWithProps />
+      <Button variant="contained" color="primary"> click here!</Button>
+    </>
+
   )
 }
 
