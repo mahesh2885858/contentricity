@@ -16,7 +16,6 @@ import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import IconButton from '@mui/material/IconButton';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
@@ -24,38 +23,23 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import FilterNoneOutlinedIcon from '@mui/icons-material/FilterNoneOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import MailIcon from '@mui/icons-material/Mail';
 import Badge from '@mui/material/Badge';
 import Image from "next/image"
 import Button from "@mui/material/Button"
 import { ColorModeContext } from "./ColorModeContext"
-import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
-import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
-import DomainAddOutlinedIcon from '@mui/icons-material/DomainAddOutlined';
-import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
-import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import CropOriginalOutlinedIcon from '@mui/icons-material/CropOriginalOutlined';
-import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
-import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import NavigateNextOutlinedIcon from '@mui/icons-material/NavigateNextOutlined';
+import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import Collapse from '@mui/material/Collapse';
+import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import ButtonAppBar from './appbar comp/Appbar';
+import { MenuItems } from './data/MenuSettings';
 
 export default function MiniDrawer({ children }: { children: React.ReactNode }) {
     const drawerWidth = 260;
-    const menuId = 'primary-search-account-menu';
     const userSettings = ["Profile", "Preferences", "Reset Password", "Logout"]
-
-
-
     const themeContext = React.useContext(ColorModeContext)
     const openedMixin = (theme: Theme): CSSObject => ({
         width: drawerWidth,
@@ -66,7 +50,6 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
         overflowX: 'hidden',
         backgroundColor: themeContext.mode === "light" ? "#ffffff" : "#30334E",
     });
-
     const closedMixin = (theme: Theme): CSSObject => ({
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
@@ -80,7 +63,6 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
         backgroundColor: themeContext.mode === "light" ? "#ffffff" : "#30334E"
 
     });
-
     const DrawerHeader = styled('div')(({ theme }) => ({
         display: 'flex',
         alignItems: 'center',
@@ -89,7 +71,6 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     }));
-
     interface AppBarProps extends MuiAppBarProps {
         open?: boolean;
     }
@@ -114,9 +95,6 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
             }),
         }),
     }));
-
-
-
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -175,49 +153,19 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
         }),
     );
 
-    const generalMenuItems = [
-        { name: "Dashboard", icon: <HomeOutlinedIcon />, isActive: true, id: "123", type: "main" },
-        { name: "Articles", icon: < FilterNoneOutlinedIcon />, isActive: false, id: "1234", type: "main" },
-        { name: "File manager", icon: <FolderOutlinedIcon />, isActive: false, id: "1234a", type: "main" },
-        { name: "Assignments", icon: <AssignmentOutlinedIcon />, isActive: false, id: "1233e4", type: "main" },
-    ]
-
-    const adminMenuItems = [
-        { name: "Platforms", id: "platform34%45", icon: <DomainAddOutlinedIcon />, isActive: false, type: "admin" },
-        { name: "Users", id: "usrs@#$sdf", icon: <PeopleAltOutlinedIcon />, isActive: false, type: "admin" },
-        { name: "Roles", id: "roels#!24idsfa", icon: <SupervisedUserCircleOutlinedIcon />, isActive: false, type: "admin" },
-        { name: "Activity Log", id: "actiVET#$@0,", icon: <AssessmentOutlinedIcon />, isActive: false, type: "admin" },
-        { name: "Content Source", id: "contntSorce@#@#", icon: <AssessmentOutlinedIcon />, isActive: false, type: "admin" },
-        { name: "Reports", id: "Rprts#@#$asfasf", icon: <AssessmentOutlinedIcon />, isActive: false, type: "admin" },
-        { name: "Settings", id: "admSett@$!@#", icon: <SettingsOutlinedIcon />, isActive: false, type: "admin" },
-
-        { name: "Biling", id: "#!@#$SDFasdf@#4R%$5", icon: <ChatOutlinedIcon />, isActive: false, type: "main" },
-
-    ]
-    const adminSettingsMenuItems = [
-        { name: "General", id: "#qwed%$5", icon: <SettingsOutlinedIcon />, isActive: false, type: "sub" },
-        { name: "Workflow", id: "#WERWer%$5", icon: <SettingsOutlinedIcon />, isActive: false, type: "sub" },
-        { name: "Platforms", id: "#qoiu#oiasf$5", icon: <DomainAddOutlinedIcon />, isActive: false, type: "sub" },
-        { name: "Tags", id: "#qxcvQEW35", icon: <CropOriginalOutlinedIcon />, isActive: false, type: "sub" },
-        { name: "Texteditor", id: "#ockem%&dkf%$5", icon: <CropOriginalOutlinedIcon />, isActive: false, type: "sub" },
-        { name: "Images", id: "#NH&^%$Gtjld%$5", icon: <CropOriginalOutlinedIcon />, isActive: false, type: "sub" },
-        { name: "Files", id: "#ASDFAsdf%$5", icon: <ChatOutlinedIcon />, isActive: false, type: "sub" },
-        { name: "Discussions", id: "#!@#$SDFR%$5", icon: <ChatOutlinedIcon />, isActive: false, type: "sub" },
-    ]
 
 
 
-    const theme = useTheme();
+
+    const [menu, setMenu] = React.useState(MenuItems)
     const { mode, switchTheme } = React.useContext(ColorModeContext)
     const [open, setOpen] = React.useState(false);
     const [isAdmin, setIsAdmin] = React.useState(true)
     const [showAdminPanel, setShowAdminPanel] = React.useState(false)
-    const menuItemsToDisplay = isAdmin && showAdminPanel ? adminMenuItems : generalMenuItems
-    const [menuItems, setMenuItems] = React.useState(menuItemsToDisplay)
     const [showAdminSettings, setShowAdminSettings] = React.useState(false)
     const [expandAdminSettings, setExpandAdminSettings] = React.useState(false)
-    // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -252,30 +200,22 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
     }
     //    navigate to a screen related menu item clicked
     const navigateToMenuItemSecion = (id: string) => {
-        setMenuItems((prev) => {
-            return prev.map((item) => {
-                if (item.id === id) {
-                    return { ...item, isActive: true }
-                } else {
-                    return { ...item, isActive: false }
-                }
-            })
-        })
-        console.log(menuItems)
+
     }
 
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open} color="secondary">
+            <AppBar position="fixed" open={open} color="secondary" sx={{ borderBottomColor: "black" }} >
 
                 <Toolbar sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingLeft: "0", paddingRight: "33.8px" }}>
                     <Box sx={{
-                        display: "flex"
+                        display: "flex",
+                        marginLeft: "-20px"
                     }}>
 
                         <IconButton
-
+                            disableRipple={true}
                             edge="start"
                             onClick={open ? handleDrawerClose : handleDrawerOpen}>
                             {!open ? <KeyboardDoubleArrowRightOutlinedIcon /> : <KeyboardDoubleArrowLeftOutlinedIcon />}
@@ -391,6 +331,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                     </Box>
                 </Toolbar>
             </AppBar>
+            <Divider color="#ffffff" />
             <Drawer variant="permanent"
                 open={open}>
                 <DrawerHeader style={{
@@ -418,7 +359,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                     </Box>
 
                 </DrawerHeader>
-                <Divider color='#ffffff12' />
+                <Divider color="#fff" />
                 <List sx={{ display: "flex", gap: "5px", flexDirection: "column", justifyContent: "flex-start", alignItems: "center", height: "100vh" }}>
                     {isAdmin && showAdminPanel && open ? (
                         <Box height={"53px"} sx={{ display: "flex", backgroundColor: themeContext.mode === "light" ? "#F5F8FF" : "#30334E", justifyContent: "center", alignItems: "center" }} >
@@ -428,8 +369,11 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                             </Typography>
                             <CloseOutlinedIcon onClick={toogleAdminPanel} sx={{ marginLeft: '63px', cursor: "pointer" }} />
                         </Box>) : undefined}
-                    {menuItemsToDisplay.map((item, index) => {
-                        if (item.type === "sub" && showAdminSettings) return undefined
+                    {menu.map((item, index) => {
+                        if (item.type === "sub") return undefined
+                        if (!isAdmin || !showAdminPanel) {
+
+                        }
                         else if (item.name === "Settings") {
                             return (
                                 <>
@@ -459,6 +403,12 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                                                     {item.icon}
                                                 </ListItemIcon>
                                                 <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+                                                {
+                                                    open && !expandAdminSettings ? (<NavigateNextOutlinedIcon />) : (
+                                                        open && expandAdminSettings ? <KeyboardArrowDownOutlinedIcon /> : undefined
+                                                    )
+
+                                                }
                                             </ListItemButton>
                                         </Tooltip>
 
@@ -466,7 +416,8 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
 
                                         <Collapse in={expandAdminSettings} timeout="auto" unmountOnExit>
                                             <List component="div" disablePadding>
-                                                {adminSettingsMenuItems.map((item,) => {
+                                                {menu.map((item,) => {
+                                                    if (!(item.type === "sub")) return undefined
                                                     return (
 
                                                         <ListItemButton key={item.id} sx={{ pl: 4 }}>
@@ -549,12 +500,17 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                                         <ListItemIcon
                                             onClick={toogleAdminPanel}
                                             sx={{
+                                                display: "flex",
+                                                alignItems: "center",
                                                 minWidth: 0,
                                                 mr: open ? 3 : 'auto',
                                                 justifyContent: 'center',
                                                 color: themeContext.mode === "light" ? "unset" : "#FFFFFF87",
                                                 height: "38px",
                                                 width: "46px",
+                                                backgroundColor: "#3366FF",
+                                                boxShadow: "0px 6px 18px -8px rgba(76, 78, 100, 0.56)",
+                                                borderRadius: "4px"
 
                                             }}
                                         >
@@ -564,8 +520,9 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
 
 
                                             }}
-                                            > */}
-                                            <Image src={"/RectangleAdmin.png"} width={"100%"} height={"100%"} />
+                                            // > */}
+                                            {/* // <Image src={"/RectangleAdmin.png"} width={"100%"} height={"100%"} /> */}
+                                            <AdminPanelSettingsOutlinedIcon sx={{ color: "#ffffff" }} />
 
                                             {/* </Box> */}
                                         </ListItemIcon>
