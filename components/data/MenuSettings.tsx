@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import FilterNoneOutlinedIcon from '@mui/icons-material/FilterNoneOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
@@ -10,24 +10,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import CropOriginalOutlinedIcon from '@mui/icons-material/CropOriginalOutlined';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
-// interface settingsType {
-//     name: string,
-//     id: string,
-//     icon: JSX.Element,
-//     isActive: boolean,
 
-
-// }
-// interface propsType {
-//     isAdmin: boolean,
-//     isAdminSettingsPanelOpen: boolean,
-// }
-// const generalMenuItems = [
-//     { name: "Dashboard", icon: <HomeOutlinedIcon />, isActive: true, id: "123", type: "main" },
-//     { name: "Articles", icon: < FilterNoneOutlinedIcon />, isActive: false, id: "1234", type: "main" },
-//     { name: "File manager", icon: <FolderOutlinedIcon />, isActive: false, id: "1234a", type: "main" },
-//     { name: "Assignments", icon: <AssignmentOutlinedIcon />, isActive: false, id: "1233e4", type: "main" },
-// ]
 
 export const MenuItems = [
     { name: "Dashboard", icon: <HomeOutlinedIcon />, isActive: true, id: "123", type: "main" },
@@ -55,37 +38,4 @@ export const MenuItems = [
 ]
 
 
-// export const getMenuItems = (props: propsType) => {
-//     const { isAdmin, isAdminSettingsPanelOpen } = props
-//     // const [generalMenu, setGeneralMenu] = useState(generalMenuItems)
-//     // const [adminMenu, setAdminMenu] = useState(adminMenuItems)
-//     // const setActiveStatus = (id: string) => {
-//     //     // whehter the user did not have the admin previlages or though he has the previlages he is not opned admin setting we will show general settings only
-//     //     if (!isAdmin || !isAdminSettingsPanelOpen) {
-//     //         setGeneralMenu((prev) => {
-//     //             return (
-//     //                 prev.map((item) => {
-//     //                     if (item.id === id) return { ...item, isActive: true }
-//     //                     else {
-//     //                         return { ...item, isActive: false }
-//     //                     }
-//     //                 })
-//     //             )
-//     //         })
-//     //     } else {
-//     //         setAdminMenu((prev) => {
-//     //             return (
-//     //                 prev.map((item) => {
-//     //                     if (item.id === id) return { ...item, isActive: true }
-//     //                     else {
-//     //                         return { ...item, isActive: false }
-//     //                     }
-//     //                 })
-//     //             )
-//     //         })
-//     //     }
-//     // }
-//     if (!isAdmin || !isAdminSettingsPanelOpen) return generalMenuItems
-//     // if (isAdmin && !isAdminSettingsPanelOpen) return generalMenuItems
-//     return adminMenuItems
-// }
+

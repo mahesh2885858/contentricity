@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme, Theme, CSSObject, alpha } from '@mui/material/styles';
+import { styled, Theme, CSSObject, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -28,15 +28,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Badge from '@mui/material/Badge';
 import Image from "next/image"
-import Button from "@mui/material/Button"
 import { ColorModeContext } from "./ColorModeContext"
-import NavigateNextOutlinedIcon from '@mui/icons-material/NavigateNextOutlined';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
-import Collapse from '@mui/material/Collapse';
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
-import ButtonAppBar from './appbar comp/Appbar';
 import { MenuItems } from './data/MenuSettings';
-
+import GetMenuList from '../utils/getMenuList';
+import useRouter from "next/router"
 export default function MiniDrawer({ children }: { children: React.ReactNode }) {
     const drawerWidth = 260;
     const userSettings = ["Profile", "Preferences", "Reset Password", "Logout"]
@@ -165,7 +161,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
     const [showAdminSettings, setShowAdminSettings] = React.useState(false)
     const [expandAdminSettings, setExpandAdminSettings] = React.useState(false)
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
+    const router = useRouter
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -199,7 +195,14 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
         setExpandAdminSettings((prev) => !prev)
     }
     //    navigate to a screen related menu item clicked
-    const navigateToMenuItemSecion = (id: string) => {
+    const navigateToMenuItemSecion = (id: string, name: string) => {
+        setMenu((prev) => {
+            return prev.map((item) => {
+                if (item.id === id) return { ...item, isActive: true }
+                else return { ...item, isActive: false }
+            })
+        })
+        router.push(`/user/${name}`)
 
     }
 
@@ -333,7 +336,10 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
             </AppBar>
             <Divider color="#ffffff" />
             <Drawer variant="permanent"
-                open={open}>
+                open={open}
+                sx={{ border: "blue solid 2px", position: "relative", }}
+
+            >
                 <DrawerHeader style={{
                     justifyContent: "space-between"
                 }}>
@@ -360,7 +366,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
 
                 </DrawerHeader>
                 <Divider color="#fff" />
-                <List sx={{ display: "flex", gap: "5px", flexDirection: "column", justifyContent: "flex-start", alignItems: "center", height: "100vh" }}>
+                <List sx={{ display: "flex", gap: "5px", flexDirection: "column", justifyContent: "flex-start", alignItems: "center", minHeight: showAdminPanel ? "fit-content" : `calc(100vh - 147px)`, }}>
                     {isAdmin && showAdminPanel && open ? (
                         <Box height={"53px"} sx={{ display: "flex", backgroundColor: themeContext.mode === "light" ? "#F5F8FF" : "#30334E", justifyContent: "center", alignItems: "center" }} >
                             <Typography fontSize={16} fontWeight={"500"} display={"inline"} >
@@ -370,208 +376,79 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                             <CloseOutlinedIcon onClick={toogleAdminPanel} sx={{ marginLeft: '63px', cursor: "pointer" }} />
                         </Box>) : undefined}
                     {menu.map((item, index) => {
-                        if (item.type === "sub") return undefined
-                        if (!isAdmin || !showAdminPanel) {
+                        return (
+                            <GetMenuList
 
-                        }
-                        else if (item.name === "Settings") {
-                            return (
-                                <>
-                                    <ListItem onClick={toggleTheSettingsList} key={item.id} disablePadding sx={{ display: 'flex', flexDirection: "column" }}>
-                                        <Tooltip title={item.name} placement="right" >
-
-                                            <ListItemButton
-                                                sx={{
-                                                    minHeight: 48,
-                                                    justifyContent: open ? 'initial' : 'center',
-                                                    px: 2.5,
-                                                    backgroundColor: themeContext.mode === "light" && item.isActive ? "#EBF0FE" : (themeContext.mode === "dark" ? "#30334E" : "#fff"),
-                                                    borderRadius: "8px",
-                                                    width: open ? "213px" : "46px",
-                                                    height: "42px",
-
-                                                }}
-                                            >
-                                                <ListItemIcon
-                                                    sx={{
-                                                        minWidth: 0,
-                                                        mr: open ? 3 : 'auto',
-                                                        justifyContent: 'center',
-                                                        color: themeContext.mode === "light" ? "unset" : "#FFFFFF87"
-                                                    }}
-                                                >
-                                                    {item.icon}
-                                                </ListItemIcon>
-                                                <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
-                                                {
-                                                    open && !expandAdminSettings ? (<NavigateNextOutlinedIcon />) : (
-                                                        open && expandAdminSettings ? <KeyboardArrowDownOutlinedIcon /> : undefined
-                                                    )
-
-                                                }
-                                            </ListItemButton>
-                                        </Tooltip>
-
-                                        {/* {expandAdminSettings ? <ExpandLess /> : <ExpandMore />} */}
-
-                                        <Collapse in={expandAdminSettings} timeout="auto" unmountOnExit>
-                                            <List component="div" disablePadding>
-                                                {menu.map((item,) => {
-                                                    if (!(item.type === "sub")) return undefined
-                                                    return (
-
-                                                        <ListItemButton key={item.id} sx={{ pl: 4 }}>
-                                                            <ListItemIcon
-                                                                sx={{
-
-                                                                    color: themeContext.mode === "light" ? "unset" : "#FFFFFF87"
-                                                                }}
-                                                            >
-                                                                {item.icon}
-                                                            </ListItemIcon>
-                                                            <ListItemText primary={item.name} />
-                                                        </ListItemButton>
-                                                    )
-                                                })}
-                                            </List>
-                                        </Collapse>
-                                    </ListItem>
-                                </>
-                            )
-
-                        }
-                        else return (
-
-
-                            <ListItem onClick={() => navigateToMenuItemSecion(item.id)} key={item.id} disablePadding sx={{ display: 'flex', flexDirection: "column" }}>
-                                <Tooltip title={item.name} placement="right" >
-
-                                    <ListItemButton
-                                        sx={{
-                                            minHeight: 48,
-                                            justifyContent: open ? 'initial' : 'center',
-                                            px: 2.5,
-                                            backgroundColor: themeContext.mode === "light" && item.isActive ? "#EBF0FE" : (themeContext.mode === "dark" ? "#30334E" : "#fff"),
-                                            borderRadius: "8px",
-                                            width: open ? "213px" : "46px",
-                                            height: "42px",
-
-                                        }}
-                                    >
-                                        <ListItemIcon
-                                            sx={{
-                                                minWidth: 0,
-                                                mr: open ? 3 : 'auto',
-                                                justifyContent: 'center',
-                                                color: themeContext.mode === "light" ? "unset" : "#FFFFFF87"
-                                            }}
-                                        >
-                                            {item.icon}
-                                        </ListItemIcon>
-                                        <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
-                                    </ListItemButton>
-                                </Tooltip>
-
-                            </ListItem>)
+                                expandAdminSettings={expandAdminSettings}
+                                isAdmin={isAdmin}
+                                item={item}
+                                menu={menu}
+                                navigateToMenuItemSecion={navigateToMenuItemSecion}
+                                open={open}
+                                showAdminPanel={showAdminPanel}
+                                toggleTheSettingsList={toggleTheSettingsList}
 
 
 
+                            />
+                        )
                     })}
 
-                    {
-                        isAdmin ?
-
-                            (<ListItem disablePadding sx={{ display: 'flex', flexDirection: "column", }}>
-                                <Tooltip title={"admin"} placement="right" >
-
-                                    <ListItemButton
-                                        sx={{
-                                            minHeight: 48,
-                                            justifyContent: open ? 'initial' : 'center',
-                                            px: 2.5,
-                                            // backgroundColor: themeContext.mode === "light" && item.isActive ? "#EBF0FE" : (themeContext.mode === "dark" ? "#30334E" : "#fff"),
-                                            borderRadius: "8px",
-                                            width: open ? "213px" : "46px",
-                                            height: "42px",
-
-                                        }}
-                                    >
-
-                                        <ListItemIcon
-                                            onClick={toogleAdminPanel}
-                                            sx={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                minWidth: 0,
-                                                mr: open ? 3 : 'auto',
-                                                justifyContent: 'center',
-                                                color: themeContext.mode === "light" ? "unset" : "#FFFFFF87",
-                                                height: "38px",
-                                                width: "46px",
-                                                backgroundColor: "#3366FF",
-                                                boxShadow: "0px 6px 18px -8px rgba(76, 78, 100, 0.56)",
-                                                borderRadius: "4px"
-
-                                            }}
-                                        >
-                                            {/* <Box sx={{
-                                                height: "38px",
-                                                width: "46px",
-
-
-                                            }}
-                                            // > */}
-                                            {/* // <Image src={"/RectangleAdmin.png"} width={"100%"} height={"100%"} /> */}
-                                            <AdminPanelSettingsOutlinedIcon sx={{ color: "#ffffff" }} />
-
-                                            {/* </Box> */}
-                                        </ListItemIcon>
-
-                                        {/* {open && isAdmin ?
-                                    (<Button
-                                        onClick={toogleAdminPanel}
-                                        style={{ backgroundColor: "#3366FF", color: "#ffffff", height: "38px", width: "218px" }}
-                                        sx={{
-                                            opacity: open ? 1 : 0,
-                                            
-                                        }} >Administration</Button>
-                                    ) : undefined} */}
-                                        <ListItemText primary={"Administration"} sx={{ opacity: open ? 1 : 0 }} />
-
-                                    </ListItemButton>
-                                </Tooltip>
-
-                            </ListItem>
-                            ) : undefined
-                    }
                 </List>
-                {/* <Divider /> */}
-                {/* <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                            <Tooltip title={text}>
+                {
+                    isAdmin ?
+
+                        (<ListItem disablePadding sx={{ display: 'flex', flexDirection: "column", marginBottom: "27px", }}>
+                            <Tooltip title={"admin"} placement="right" >
+
                                 <ListItemButton
                                     sx={{
+                                        display: "flex",
                                         minHeight: 48,
-                                        justifyContent: open ? 'initial' : 'center',
+                                        justifyContent: 'center',
+                                        alignItems: "center",
                                         px: 2.5,
+                                        borderRadius: "8px",
+                                        width: open ? "213px" : "46px",
+                                        height: "42px",
+
                                     }}
                                 >
+
                                     <ListItemIcon
+                                        onClick={toogleAdminPanel}
                                         sx={{
+                                            alignItems: "center",
                                             minWidth: 0,
-                                            mr: open ? 3 : 'auto',
+
                                             justifyContent: 'center',
+                                            color: themeContext.mode === "light" ? "unset" : "#FFFFFF87",
+                                            height: "38px",
+                                            width: "46px",
+                                            backgroundColor: "#3366FF",
+                                            boxShadow: "0px 6px 18px -8px rgba(76, 78, 100, 0.56)",
+                                            borderRadius: "4px",
+                                            display: !open ? "flex" : "none",
+                                            marginLeft: "7px"
+
+
                                         }}
                                     >
-                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+
+                                        <AdminPanelSettingsOutlinedIcon sx={{ color: "#ffffff", }} />
+
                                     </ListItemIcon>
-                                    <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+
+
+                                    <ListItemText onClick={toogleAdminPanel} primary={"Administration"} sx={{ opacity: open ? 1 : 0, display: "flex", justifyContent: "center", backgroundColor: "rgb(51, 102, 255)", padding: "5px", color: "#ffffff" }} />
+
                                 </ListItemButton>
                             </Tooltip>
+
                         </ListItem>
-                    ))}
-                </List> */}
+                        ) : undefined
+                }
+
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3, gap: "20px", display: "flex", height: `calc(100vh - 70px)`, marginTop: "70px", width: "100%" }}>
                 <DrawerHeader />
