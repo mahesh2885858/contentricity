@@ -45,6 +45,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
         }),
         overflowX: 'hidden',
         backgroundColor: themeContext.mode === "light" ? "#ffffff" : "#30334E",
+        borderRightColor: " #ffffff"
     });
     const closedMixin = (theme: Theme): CSSObject => ({
         transition: theme.transitions.create('width', {
@@ -56,7 +57,10 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
         [theme.breakpoints.up('sm')]: {
             width: `calc(${theme.spacing(8)} + 1px)`,
         },
-        backgroundColor: themeContext.mode === "light" ? "#ffffff" : "#30334E"
+        backgroundColor: themeContext.mode === "light" ? "#ffffff" : "#30334E",
+        borderRightColor: " #ffffff"
+
+
 
     });
     const DrawerHeader = styled('div')(({ theme }) => ({
@@ -64,6 +68,8 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
         alignItems: 'center',
         justifyContent: 'flex-end',
         padding: theme.spacing(0, 1),
+
+
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     }));
@@ -76,8 +82,11 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
     })<AppBarProps>(({ theme, open }) => ({
         zIndex: theme.zIndex.drawer + 1,
         width: `calc(100% - 65px)`,
-        height: "70px",
+        height: "71px",
         boxShadow: "none",
+        borderBottom: "1px solid #ffffff ",
+        borderBottomColor: "#ffffff !important",
+
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -265,69 +274,7 @@ export default function MiniDrawer({ children }: { children: React.ReactNode }) 
                         </Box>
 
 
-                        <Box sx={{ flexGrow: 0, display: "flex" }}>
-                            <Avatar sx={{
-                                height: "40px",
-                                width: "40px"
-                            }} alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <ArrowDropDownOutlinedIcon />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{
-                                    mt: '55px',
-                                    height: "100%",
 
-                                }}
-                                PaperProps={
-                                    {
-                                        sx: {
-                                            width: "162px",
-                                            height: "212px",
-                                            border: "1px solid #E9E9EC",
-                                            borderRadius: "4px",
-                                            boxShadow: "0px 2px 3px rgba(0, 0, 0, 0.05), 0px 3px 10px rgba(0, 0, 0, 0.11)"
-
-                                        }
-                                    }
-                                }
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-                                <Box sx={{ width: "100%", height: "69px", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px" }}>
-                                    <Box sx={{ width: "40px", height: "40px" }}>
-                                        <Image src="/Group1.png" alt='some' width={"100%"} height="100%" style={{ borderRadius: "50%" }} />
-                                    </Box>
-                                    <Box>
-                                        <Typography fontSize={13} >
-                                            Jhon Doe
-                                        </Typography>
-                                        <Typography fontSize={10}>
-                                            Administrator
-                                        </Typography>
-                                    </Box>
-                                </Box>
-
-                                {userSettings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}  >
-                                        <Typography fontSize={13} textAlign="center">{setting}</Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </Box>
 
 
                         {/* accoutn settings sectin End */}
